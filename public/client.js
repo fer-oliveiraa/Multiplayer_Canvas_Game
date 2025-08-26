@@ -3,6 +3,7 @@ const socket = io();
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+
 //armazenar os jogadores
 let players = {};
 
@@ -17,6 +18,8 @@ socket.on('newPlayer', (player) => {
     players[player.id] = player;
     render();
 });
+
+
 
 //movimento de jogador
 socket.on('playerMoved', (data) => {
@@ -48,5 +51,7 @@ function render() {
     Object.values(players).forEach(player =>  {
         ctx.fillStyle = player.color;
         ctx.fillRect(player.x, player.y, 30, 30);
+
     });
+    
 };

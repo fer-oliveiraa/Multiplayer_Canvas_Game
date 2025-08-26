@@ -19,25 +19,69 @@ io.on('connection', (socket) => {
     players[socket.id] = { 
         x: 50, 
         y: 50,
-        color: getRandomColor()
+        width: 30,
+        height: 30,
+        color: getRandomColor(),
     };
+
+    //receber nome do jogador
+    socket.on("setName", (name) => {
+        if (players[socket.id]) {
+            players[socket.id].name = name;
+            //Atualiza para todos os clientes 
+            io.emit("updateName", { id: socket.id, name });
+        }
+    });
 
     //enviar para o novo usuario o estado atual do jogo 
     socket.emit('currentPlayers', players);
 
     //notificar aos outros jogadores a entrada de um novo jogador
-    socket.broadcasr.emit('newPlayer', { id: socket.id, ...players[socket.id] });
+    socket.broadcast.emit('newPlayer', { id: socket.id, ...players[socket.id] });
 
     //movimento do jogador *on* servidor esta escutando o evento
     socket.on('move', (direction) => {
         const player = players[socket.id];
-        if (!player) return;
+        if (!player) return; 
 
         const speed = 5;
+
+        //salva a posição antes do movimento
+        const oldX = player.x;
+        const oldY = player.y;
+
         if (direction === 'left')player.x -= speed;
         if (direction === 'right')player.x += speed;
         if (direction === 'up')player.y -= speed;
         if (direction === 'down')player.y += speed;
+
+        //função de colisão
+        function checkCollision(p1, p2) {
+            return !(
+                p1.x + p1.width <= p2.x ||
+                p1.x >= p2.x + p2.width ||
+                p1.y + p1.height <= p2.y ||
+                p1.y >= p2.y + p2.height
+
+
+            );
+        }
+
+        for (let id in players) {
+            if (id !== socket.id) {
+                if (checkCollision(player, players[id])) {
+                    //se bater desfaz o movimento
+                    player.x = oldX;
+                    player.y = oldY;
+                    break;
+                }
+            }
+        }
+
+
+        //Limites da tela 
+        player.x = Math.max(0, Math.min(600 - 30, player.x));
+        player.y = Math.max(0, Math.min(400 - 30, player.y));
 
         io.emit('playerMoved', { id: socket.id, x: player.x, y: player.y });
     });
