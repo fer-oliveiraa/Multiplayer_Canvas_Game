@@ -27,7 +27,7 @@ Um jogo multiplayer simples em tempo real usando Node.js, Socket.IO e HTML5 Canv
 # Instalação e execução
 - Clone o repositório:
 
-```git clone <url-do-repo>``` <br>
+```git clone https://github.com/fer-oliveiraa/Multiplayer_Canvas_Game.git``` <br>
 ```cd projeto-multiplayer```
 
 - Instale as dependências:
@@ -54,3 +54,4 @@ Um jogo multiplayer simples em tempo real usando Node.js, Socket.IO e HTML5 Canv
 ```HTML5 Canvas```
 
 ```JavaScript```
+
