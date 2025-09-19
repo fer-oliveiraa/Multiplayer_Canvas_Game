@@ -15,21 +15,29 @@ let players = {};
 io.on('connection', (socket) => {
     console.log(`Novo jogador conectado: ${socket.id}`);
 
-    //Criar o jogador na posição inicial
-    players[socket.id] = { 
-        x: 50, 
+socket.on("setPlayerData", (data) => {
+    players[socket.id] = {
+        x: 50,
         y: 50,
         width: 30,
         height: 30,
-        color: getRandomColor(),
+        name: data.name,
+        skin: data.skin
     };
 
+    socket.emit('currentPlayers', players);
+
+    socket.broadcast.emit('newPlayer', { id: socket.id, ...players[socket.id] });
+
+    io.emit("updatePlayer", { id: socket.id, ...players[socket.id] });
+});
     //receber nome do jogador
-    socket.on("setName", (name) => {
+    socket.on("setPlayerData", (data) => {
         if (players[socket.id]) {
-            players[socket.id].name = name;
+            players[socket.id].name = data.name;
+            players[socket.id].skin = data.skin;
             //Atualiza para todos os clientes 
-            io.emit("updateName", { id: socket.id, name });
+            io.emit("updateName", { id: socket.id, ...players[socket.id] });
         }
     });
 

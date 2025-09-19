@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 03</title>
-    <style>
-        canvas {
-            background-color: #f0f0f0;
-            display: block;
-            margin: auto;
-        }
-    </style>
+    <title>Jogo Multiplayer</title>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <div id="menu">
+        <h2>Escolha seu nome e skin</h2>
+        <input id="nameInput" placeholder="Seu nome">
+        <select id="skinSelect">
+            <option value="red">Vermelho</option>
+            <option value="blue">Azul</option>
+            <option value="green">Verde</option>
+            <option value="yellow">Amarelo</option>
+            <option value="purple">Roxo</option>
+            <option value="orange">Laranja</option>
+        </select>
+        <button id="startBtn">Entrar no Jogo</button>
+    </div>
+
+    <canvas id="gameCanvas" width="600" height="400" style="display:none;"></canvas>
+
+    <div id="gameMessages" style="display: none;"></div>
+
+    <div id="scoreboard" style="display: none;">
+        <h3>Placar</h3>
+        <ul id="scoreList">
+            </ul>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="client.js"></script>
+
 </body>
 </html>

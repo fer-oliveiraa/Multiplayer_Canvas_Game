@@ -1,4 +1,3 @@
-//cliente.js
 const socket = io();    
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -7,7 +6,24 @@ const ctx = canvas.getContext('2d');
 //armazenar os jogadores
 let players = {};
 
-//rebece todos os jogadores ao se sonectar
+document.getElementById("startBtn").addEventListener("click", () => {
+    const name = document.getElementById("nameInput").value || "SemNome";
+    const skin = document.getElementById("skinSelect").value;
+
+    //envia nome e skin para o servidor
+    socket.emit("setPlayerData", { name, skin });
+
+    //esconde menu e mostra jogo 
+    document.getElementById("menu").style.display = "none";
+    canvas.style.display = "block";
+});
+
+socket.on("updatePlayer", (data) => {
+    players[data.id] = data;
+    render();
+});
+
+//rebece todos os jogadores ao se conectar
 socket.on('currentPlayers', (serverPlayers) => {
     players = serverPlayers;
     render(); //criar função
@@ -19,6 +35,16 @@ socket.on('newPlayer', (player) => {
     render();
 });
 
+//nome jogador
+socket.on("updateName", (data) => {
+    if (players[data.id]) {
+        players[data.id].name = data.name;
+        render();
+    }
+});
+
+const playerName = prompt("Digite seu nome:");
+socket.emit("setName", playerName);
 
 
 //movimento de jogador
@@ -48,10 +74,19 @@ document.addEventListener('keydown', (event) => {
 //renderização 
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    Object.values(players).forEach(player =>  {
-        ctx.fillStyle = player.color;
+
+    Object.values(players).forEach(player => {
+        // Desenhar quadrado
+        ctx.fillStyle = player.skin || "gray";
         ctx.fillRect(player.x, player.y, 30, 30);
 
+        // Mostrar nome (se existir)
+        if (player.name) {
+            ctx.fillStyle = "black";
+            ctx.font = "14px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(player.name, player.x + 15, player.y - 5);
+        }
     });
-    
-};
+}
+

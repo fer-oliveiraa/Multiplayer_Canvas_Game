@@ -1,0 +1,41 @@
+body { 
+    font-family: sans-serif; 
+    text-align: center; 
+}
+
+canvas { 
+    background-color: #f0f0f0; 
+    display: none; 
+    margin: auto; 
+}
+
+#menu { 
+    padding: 20px; 
+}
+
+#gameMessages {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+#scoreboard {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+#scoreboard h3 { 
+    margin-top: 0; 
+}
