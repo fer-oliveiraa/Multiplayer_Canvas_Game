@@ -3,20 +3,19 @@ Projeto desenvolvido durante a aula de Tópicos Avançados.
 Um jogo multiplayer simples em tempo real usando Node.js, Socket.IO e HTML5 Canvas, onde os jogadores podem se mover em uma área limitada e evitar sobreposição entre si.
 
 # Funcionalidades
-- Jogadores se movem com as setas do teclado (ArrowUp, ArrowDown, ArrowLeft, ArrowRight).
-
-- Colisão com os limites da tela: jogadores não podem sair da área do canvas (600x400).
-
-- Prevenção de sobreposição: dois jogadores não podem ocupar o mesmo espaço.
-
-- Cada jogador possui uma cor aleatória.
-
-- Adição e remoção de jogadores em tempo real.
+- **Movimentação de Jogadores**: Controle seu personagem usando as setas do teclado.
+- **Personalização**: Escolha seu nome e uma cor (skin) antes de entrar no jogo.
+- **Sistema de Pontuação**: Colete itens (cerejas) que aparecem aleatoriamente no mapa para ganhar pontos.
+- **Placar em Tempo Real**: Um placar global mostra a pontuação dos jogadores, ordenado do maior para o menor.
+- **Colisão com Paredes**: Os jogadores não podem sair dos limites da tela.
+- **Prevenção de Sobreposição**: Os jogadores não podem ocupar o mesmo espaço.
+- **Notificações em Tempo Real**: Mensagens são exibidas quando um jogador entra ou sai do jogo.
 
 # 📂 Estrutura do projeto
 │projeto-multiplayer <br>
 │<br>
 ├─ public/<br>
+│ ├─ cereja.png<br>
 │ ├─ index.html # Página principal com o canvas <br>
 │ └─ client.js # Lógica do cliente<br>
 │<br>
