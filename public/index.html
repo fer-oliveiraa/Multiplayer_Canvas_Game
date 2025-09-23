@@ -1,3 +1,4 @@
+<!-- ...existing code... -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,28 +10,30 @@
 </head>
 <body>
 
-    <div id="menu">
-        <h2>Escolha seu nome e skin</h2>
-        <input id="nameInput" placeholder="Seu nome">
-        <select id="skinSelect">
-            <option value="red">Vermelho</option>
-            <option value="blue">Azul</option>
-            <option value="green">Verde</option>
-            <option value="yellow">Amarelo</option>
-            <option value="purple">Roxo</option>
-            <option value="orange">Laranja</option>
-        </select>
-        <button id="startBtn">Entrar no Jogo</button>
-    </div>
+    <div class="app-container">
+        <div id="menu" class="menu-panel">
+            <h2>Escolha seu nome e skin</h2>
+            <input id="nameInput" placeholder="Seu nome" autocomplete="off">
+            <select id="skinSelect">
+                <option value="red">Vermelho</option>
+                <option value="blue">Azul</option>
+                <option value="green">Verde</option>
+                <option value="yellow">Amarelo</option>
+                <option value="purple">Roxo</option>
+                <option value="orange">Laranja</option>
+            </select>
+            <button id="startBtn" class="primary">Entrar no Jogo</button>
+            <p class="hint">Use as setas do teclado para se mover</p>
+        </div>
 
-    <canvas id="gameCanvas" width="600" height="400" style="display:none;"></canvas>
-
-    <div id="gameMessages"></div>
-
-    <div id="scoreboard" style="display: none;">
-        <h3>Placar</h3>
-        <ul id="scoreList">
-            </ul>
+        <div class="game-area">
+            <canvas id="gameCanvas" width="600" height="400" style="display:none;"></canvas>
+            <div id="gameMessages" class="game-messages" aria-live="polite"></div>
+            <aside id="scoreboard" class="scoreboard" style="display: none;">
+                <h3>Placar</h3>
+                <ul id="scoreList" class="score-list"></ul>
+            </aside>
+        </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
