@@ -13,7 +13,7 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:var(--text); background: linear-gradient(180deg,var(--bg-1),var(--bg-2));}
 
-/* Container */
+
 .app-container{
   min-height:100vh;
   display:flex;
@@ -23,7 +23,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
   gap:24px;
 }
 
-/* Menu card */
+
 .menu-panel{
   width:320px;
   padding:20px;
@@ -64,7 +64,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
 .menu-panel .primary:hover{ transform:translateY(-2px); box-shadow: 0 10px 24px rgba(255,122,122,0.14); }
 .menu-panel .hint{ margin-top:10px; font-size:12px; color:var(--muted) }
 
-/* Game area */
+
 .game-area{ display:flex; align-items:flex-start; gap:20px; position:relative; }
 #gameCanvas{
   background: linear-gradient(180deg,#eaf6ff11,#ffffff05);
@@ -76,7 +76,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
   display:block;
 }
 
-/* Player name badge styling (drawn on canvas fallback) */
+
 .player-badge{
   font-size:12px;
   color:#fff;
@@ -86,7 +86,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
   display:inline-block;
 }
 
-/* Scoreboard */
+
 .scoreboard{
   position: absolute;
   right: -240px;
@@ -113,7 +113,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
 }
 .score-list li strong{ color:var(--accent-start); }
 
-/* Game messages (toast) */
+
 .game-messages{
   position: absolute;
   left: 50%;
@@ -129,7 +129,7 @@ html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Seg
   box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
-/* Responsividade: move scoreboard under o canvas em telas pequenas */
+
 @media (max-width: 900px){
   .app-container{flex-direction:column; padding:20px}
   .game-area{ width:100%; justify-content:center }

@@ -8,12 +8,12 @@ const io = new Server(server);
 
 app.use(express.static("public"));
 
-// Armazena jogadores conectados
+
 let players = {};
-// Armazena itens no mapa
+
 let items = [];
 
-// Função para spawnar itens
+
 function spawnItem() {
     const item = {
         id: Date.now() + Math.random(),
@@ -21,19 +21,19 @@ function spawnItem() {
         y: Math.floor(Math.random() * (400 - 40)),
         width: 40,
         height: 40,
-        type: "coin" // pode trocar por outros tipos no futuro
+        type: "coin" 
     };
     items.push(item);
     io.emit("itemSpawned", item);
 }
 
-// Spawna um item a cada 5 segundos
+
 setInterval(spawnItem, 5000);
 
 io.on('connection', (socket) => {
     console.log(`Novo jogador conectado: ${socket.id}`);
 
-    // Evento enviado pelo cliente para definir nome e skin
+
     socket.on("setPlayerData", (data) => {
         players[socket.id] = {
             x: 50,
@@ -45,15 +45,15 @@ io.on('connection', (socket) => {
             score: 0
         };
 
-        // Envia todos os jogadores e itens atuais para o novo jogador
+       
         socket.emit('currentPlayers', players);
         socket.emit('currentItems', items);
 
-        // Notifica os outros sobre o novo jogador
+        
         socket.broadcast.emit('newPlayer', { id: socket.id, ...players[socket.id] });
     });
 
-    // Movimento do jogador
+ 
     socket.on('move', (direction) => {
         const player = players[socket.id];
         if (!player) return;
@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
         if (direction === 'up') player.y -= speed;
         if (direction === 'down') player.y += speed;
 
-        // Função para checar colisão
+     
         function checkCollision(p1, p2) {
             return !(
                 p1.x + p1.width <= p2.x ||
@@ -77,7 +77,7 @@ io.on('connection', (socket) => {
             );
         }
 
-        // Impedir colisão entre jogadores
+        
         for (let id in players) {
             if (id !== socket.id) {
                 if (checkCollision(player, players[id])) {
@@ -88,10 +88,10 @@ io.on('connection', (socket) => {
             }
         }
 
-        // Checar colisão com itens
+     
         for (let i = items.length - 1; i >= 0; i--) {
             if (checkCollision(player, items[i])) {
-                player.score += 10; // +10 pontos por item
+                player.score += 10; 
                 io.emit("updateScore", { id: socket.id, score: player.score });
 
                 const removed = items.splice(i, 1)[0];
@@ -101,7 +101,7 @@ io.on('connection', (socket) => {
             }
         }
 
-        // Limites da tela
+ 
         player.x = Math.max(0, Math.min(600 - 30, player.x));
         player.y = Math.max(0, Math.min(400 - 30, player.y));
 
@@ -110,7 +110,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    // Jogador desconectou
+    
     socket.on('disconnect', () => {
         const player = players[socket.id];
         if (player) {
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Atualizar o placar global
+
 function updateScoreboard() {
     const scores = Object.entries(players).map(([id, p]) => ({
         id,

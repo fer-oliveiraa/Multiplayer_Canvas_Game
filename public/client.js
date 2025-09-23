@@ -3,7 +3,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
 let players = {};
-let items = []; // itens ativos no mapa
+let items = []; 
 
 document.getElementById("startBtn").addEventListener("click", () => {
     const name = document.getElementById("nameInput").value || "SemNome";
@@ -15,16 +15,16 @@ document.getElementById("startBtn").addEventListener("click", () => {
     canvas.style.display = "block";
 });
 
-// Dicionário de imagens
+
 const itemImages = {
     coin: new Image(),
     star: new Image()
 };
 
-itemImages.coin.src = "cereja.png";  // usei a mesma imagem para exemplo
+itemImages.coin.src = "cereja.png";  
 itemImages.star.src = "cereja.png";
 
-// ----------------- Jogadores -----------------
+
 socket.on('currentPlayers', (serverPlayers) => {
     players = serverPlayers;
 
@@ -58,7 +58,7 @@ socket.on('playerDisconnected', (data) => {
     showMessage(`Jogador ${data.name || "Desconhecido"} saiu do jogo`);
 });
 
-// ----------------- Itens -----------------
+
 socket.on("currentItems", (serverItems) => {
     items = serverItems;
     render();
@@ -74,7 +74,7 @@ socket.on("itemRemoved", (itemId) => {
     render();
 });
 
-// ----------------- Pontuação -----------------
+
 socket.on("updateScore", (data) => {
     if (players[data.id]) {
         players[data.id].score = data.score;
@@ -92,7 +92,7 @@ socket.on("scoreboardUpdate", (scores) => {
     document.getElementById("scoreboard").style.display = "block";
 });
 
-// ----------------- Controles -----------------
+
 document.addEventListener('keydown', (event) => {
     const key = event.key;
     if (key === 'ArrowLeft') socket.emit('move', 'left');
@@ -101,7 +101,7 @@ document.addEventListener('keydown', (event) => {
     if (key === 'ArrowDown') socket.emit('move', 'down');
 });
 
-// ----------------- Renderização -----------------
+
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -113,7 +113,7 @@ function render() {
         }
     });
 
-    // Desenhar jogadores
+    
     Object.values(players).forEach(player => {
         const skinColor = player.skin || "gray";
         
